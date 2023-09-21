@@ -1,3 +1,96 @@
+/* implement below 
+const test = async () => {
+console.log("hello");
+await sleep(2);
+console.log("world");
+}
+*/
+const sleep = (x) => {
+   return new Promise((resolve)=> {
+   setTimeout(() => {  resolve(); }, 2000)
+   })    
+}
+
+test();
+////////
+
+
+const x = () => {
+    
+  for(var i=0; i<5; i++) {
+      
+      function close(x){
+           console.log("x",x)
+          setTimeout(()=>{
+              console.log(x)
+          },x*1000)
+      }
+       console.log("i",i)
+      close(i);
+  }
+  
+}
+
+
+x(); //0  1  2  3  4  
+
+const y = () => {
+  
+  for(var i=0; i<5; i++) {
+      
+     
+        
+          setTimeout(()=>{
+              console.log("y",i)
+          },i*1000)
+    
+      
+  }
+  
+}
+
+
+y(); //5  5   5   5  5
+//************* */
+
+
+
+class Animal {
+  static belly = [];
+  eat() { Animal.belly.push("food"); }
+}
+
+let a = new Animal();
+a.eat();
+
+console.log(/* Snippet Here */); //Prints food /
+//Ans: Animal.belly[0]
+///// **
+
+let cat = Object.create({ type: "lion" });
+cat.size = "large";
+
+let copyCat = { ...cat };
+cat.type = "tiger";
+
+console.log(copyCat.type, copyCat.size); //undefined 'large'
+
+
+//Count occurrences of all items in an array in JavaScript
+const count = (str) => {
+  const counter = {};
+  str.split(' ').forEach((ele)=>{
+      if(counter[ele]){
+          counter[ele] += 1;
+      } else {
+          counter[ele] = 1;
+      }
+  })
+  console.log(counter)
+}
+count("Welcome Welcome toProgramiz!"); //{ Welcome: 2, 'toProgramiz!': 1 }
+
+
 //Reverse string
 var string = "India is my country"
 
@@ -23,7 +116,7 @@ for (i = string.length - 1; i >= 0; i--) {
 
 console.log(res) //yrtnuoc ym si aidnI
 
-
+//same seq reverse
 var string = "India is my country";
 console.log(string)
 let res1 = '';
@@ -42,8 +135,48 @@ for (c of string) {
 
 }
 
-console.log(res1 + word); ////yrtnuoc ym si aidnI
+console.log(res1 + word);
+//aidnI si ym yrtnuoc
 
+//way2
+var str = "India is my country";
+console.log(str)
+
+let res = '', word = '';
+for (let i = str.length - 1; i >= 0; i--) {
+  if (' ' === str[i]) {
+    res = word + ' ' + res;
+    word = '';
+  } else {
+    word = word + str[i]
+  }
+}
+
+console.log(word, res) //aidnI si ym yrtnuoc
+
+//How to sort an array based on the length of each element? without inbuild functions
+var arr = [ 'yrtnuoc', 'ym', 'si', 'aidnI' ];
+
+const bubbleSort = (arr) => {
+    let swapped = true;
+    do {
+        swapped = false;
+    for(let i=0; i<arr.length - 1; i++) {
+        console.log(arr[i].length, arr[i + 1].length)
+        if(arr[i].length < arr[i + 1].length ){
+            
+            let temp = arr[i];
+            arr[i] = arr[i+1];
+            arr[i+1]=temp;
+            swapped = true;
+        }
+    }
+    } while (swapped)
+    
+    return arr;
+}
+
+console.log(bubbleSort(arr)); //[ 'yrtnuoc', 'aidnI', 'ym', 'si' ]
 
 
 //Factorial
@@ -547,3 +680,138 @@ const secondLargestNum = (arr) => {
 console.log(secondLargestNum(['1', '2', '3', '4', '9']))
 
 
+//star pattern
+
+let str = "";
+for (i = 1; i <= 5; i++) {
+
+  for (j = 1; j <= i; j++) {
+    str += "*";
+  }
+
+  str += "\n";
+}
+
+console.log(str)
+
+Output:
+
+*
+**
+***
+****
+*****
+
+
+  let str = "";
+for (i = 1; i <= 5; i++) {
+  str += " ";
+  for (j = 1; j <= 5; j++) {
+    str += "*";
+  }
+
+  str += "\n";
+}
+
+console.log(str)
+Output:
+
+ *****
+ *****
+ *****
+ *****
+ *****
+
+  let num = 5;
+let str = "";
+// External loop
+for (let i = 1; i <= num; i++) {
+
+  for (j = i; j <= num; j++) {
+    str += " "
+  }
+
+  for (j = 1; j <= 2 * i - 1; j++) {
+    str += "*"
+  }
+
+  str += "\n";
+}
+console.log(str);
+
+Output:
+
+     *
+    ***
+   *****
+  *******
+ *********
+
+ //https://www.tutorialstonight.com/js/javascript-star-pattern?expand_article=1#google_vignette
+
+// ================================================================================================================================================================================
+// Make alternate character to upper case
+
+ const altCharUpperCase = (str) => {
+  let result = str.split('').map((e, index) => {
+    return index % 2 == 0 ? e.toUpperCase() : e.toLowerCase();
+  })
+  return result.join("");
+}
+
+console.log(altCharUpperCase("Shital patil"))
+
+
+// ================================================================================================================================================================================
+// To find all the subsets of the set
+function findAllSubsetsoOfGivenSet(arr) {
+  const result = arr.reduce((acc, cur) => acc.concat(acc.map(e => [cur, ...e]))
+    , [[]])
+
+  return result;
+}
+console.log(findAllSubsetsoOfGivenSet([8, 9]));
+
+// ================================================================================================================================================================================
+// To find the maximum repetation of the character in a string  
+
+
+const maxRepeating = (str) => {
+  let arr = [];
+  let maxArr = [];
+  const input = str.split('')
+  input.map((e, index) => {
+    if (input.indexOf(e) !== index) {
+      arr.push(e)
+
+    } else {
+      maxArr = [...arr]
+      arr.length = 0;
+    }
+
+  })
+  return maxArr;
+}
+
+console.log(maxRepeating("aaaabbaaccccccccccccccccccde"));
+
+
+// ================================================================================================================================================================================
+// To find all the missing numbers from an array
+
+function MissingElements(arr) {
+  const missing = []
+
+  for (i = 0; i <= arr.length; i++) {
+    if (arr[i] + 1 !== arr[i + 1]) {
+      let min = arr[i];
+      while (min < arr[i + 1] - 1) {
+        min++;
+        missing.push(min)
+      }
+    }
+  }
+  return missing;
+}
+
+console.log(MissingElements([1, 2, 6])); //3,4,5
