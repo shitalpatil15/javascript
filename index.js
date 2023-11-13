@@ -1,3 +1,60 @@
+//currying
+function sum(a) {
+  return function (b) {
+    if (!b) {
+      return a;
+    }
+    return sum(a + b);
+  }
+}
+console.log(sum(1)(2)(3)(4)(5)(6)());
+
+//Infinite curryung for both simple and currying function
+
+const sum = (...args) => {
+  const total = args.reduce((acc, cur) => acc + cur, 0);
+
+  return (...args2) => {
+    if (args2.length > 0) {
+      const total1 = args2.reduce((acc, cur) => acc + cur, 0);
+      return sum(total, total1)
+    }
+
+    return total;
+  }
+
+}
+
+console.log(sum(2, 3, 4)(2, 3)(1)()); // 15
+
+console.log(sum(1, 2, 3)(2)())
+
+console.log(sum(1)(2)(3)())
+
+
+//input : [1,2,[3,4],[5,6,7,[8,9]],10]
+//  output: [1,2,3,4,5,6,7,8,9,10];
+
+const arr = [1, 2, [3, 4], [5, 6, 7, [8, 9]], 10];
+//console.log(arr.flat(2))
+const result = [];
+
+
+const flatArr = (arr) => {
+  arr.forEach(e => {
+    if (Array.isArray(e)) {
+      flatArr(e);
+    } else {
+      result.push(e)
+    }
+  })
+}
+
+flatArr(arr)
+console.log(result)
+
+
+
 /* implement below 
 const test = async () => {
 console.log("hello");
@@ -6,9 +63,9 @@ console.log("world");
 }
 */
 const sleep = (x) => {
-   return new Promise((resolve)=> {
-   setTimeout(() => {  resolve(); }, 2000)
-   })    
+  return new Promise((resolve) => {
+    setTimeout(() => { resolve(); }, 2000)
+  })
 }
 
 test();
@@ -16,37 +73,37 @@ test();
 
 
 const x = () => {
-    
-  for(var i=0; i<5; i++) {
-      
-      function close(x){
-           console.log("x",x)
-          setTimeout(()=>{
-              console.log(x)
-          },x*1000)
-      }
-       console.log("i",i)
-      close(i);
+
+  for (var i = 0; i < 5; i++) {
+
+    function close(x) {
+      console.log("x", x)
+      setTimeout(() => {
+        console.log(x)
+      }, x * 1000)
+    }
+    console.log("i", i)
+    close(i);
   }
-  
+
 }
 
 
 x(); //0  1  2  3  4  
 
 const y = () => {
-  
-  for(var i=0; i<5; i++) {
-      
-     
-        
-          setTimeout(()=>{
-              console.log("y",i)
-          },i*1000)
-    
-      
+
+  for (var i = 0; i < 5; i++) {
+
+
+
+    setTimeout(() => {
+      console.log("y", i)
+    }, i * 1000)
+
+
   }
-  
+
 }
 
 
@@ -79,12 +136,12 @@ console.log(copyCat.type, copyCat.size); //undefined 'large'
 //Count occurrences of all items in an array in JavaScript
 const count = (str) => {
   const counter = {};
-  str.split(' ').forEach((ele)=>{
-      if(counter[ele]){
-          counter[ele] += 1;
-      } else {
-          counter[ele] = 1;
-      }
+  str.split(' ').forEach((ele) => {
+    if (counter[ele]) {
+      counter[ele] += 1;
+    } else {
+      counter[ele] = 1;
+    }
   })
   console.log(counter)
 }
@@ -155,25 +212,25 @@ for (let i = str.length - 1; i >= 0; i--) {
 console.log(word, res) //aidnI si ym yrtnuoc
 
 //How to sort an array based on the length of each element? without inbuild functions
-var arr = [ 'yrtnuoc', 'ym', 'si', 'aidnI' ];
+var arr = ['yrtnuoc', 'ym', 'si', 'aidnI'];
 
 const bubbleSort = (arr) => {
-    let swapped = true;
-    do {
-        swapped = false;
-    for(let i=0; i<arr.length - 1; i++) {
-        console.log(arr[i].length, arr[i + 1].length)
-        if(arr[i].length < arr[i + 1].length ){
-            
-            let temp = arr[i];
-            arr[i] = arr[i+1];
-            arr[i+1]=temp;
-            swapped = true;
-        }
+  let swapped = true;
+  do {
+    swapped = false;
+    for (let i = 0; i < arr.length - 1; i++) {
+      console.log(arr[i].length, arr[i + 1].length)
+      if (arr[i].length < arr[i + 1].length) {
+
+        let temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+        swapped = true;
+      }
     }
-    } while (swapped)
-    
-    return arr;
+  } while (swapped)
+
+  return arr;
 }
 
 console.log(bubbleSort(arr)); //[ 'yrtnuoc', 'aidnI', 'ym', 'si' ]
@@ -261,6 +318,36 @@ const checkPalidrom = (str) => {
 
 console.log(checkPalidrom("eye"));
 
+
+
+/*ABCEC => CEC
+
+EDEFG => EDE
+
+AA => AA*/
+
+
+const isPalindrome = (str) => {
+    const reverseStr = str.split('').reverse().join('');
+ 
+   if(str === reverseStr) return str;
+}
+
+const fun = (str ) => {
+     const n = str.length;
+    for (let i = 0; i < n; i++) {
+        for (let len = 3; i + len <= n; len += 3) {
+           const res = isPalindrome(str.substr(i, len))
+           console.log("===>",res )     //return EDE;
+            
+        }
+    }
+}
+
+
+
+
+console.log(fun('EDEFG'));
 //================================================================================================================================================================================
 //To find longest word from a string 
 
@@ -505,7 +592,7 @@ const result = str.split(" ").map((e) => {
 
 console.log(result.join(" "))
 
-// ================================================================================================================================================================================
+// =====================================================c ===========================================================================================================================
 // To check ending of the string with given character/s using custom
 
 function confirmEnding(str, target) {
@@ -815,3 +902,22 @@ function MissingElements(arr) {
 }
 
 console.log(MissingElements([1, 2, 6])); //3,4,5
+
+// ================================================================================================================================================================================
+
+
+//From the String below, find the number of "e" characters.
+ 
+const str = `Hospitality & Specialty Communications company was the first to introduce the wireless drive-thru headset system to the quick-service restaurant industry.`;
+
+let count = 0;
+for(let i=0; i <= str.length; i++){
+ if(str.charAt(i) === "e") {
+     count++
+   
+ }
+}
+ console.log(count)
+
+ 
+// ================================================================================================================================================================================
